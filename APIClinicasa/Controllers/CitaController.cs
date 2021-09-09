@@ -35,7 +35,7 @@ namespace APIClinicasa.Controllers
             return Ok("Cita Agregada!");
         }
 
-        [HttpPost]
+        [HttpPut]
         public IHttpActionResult EditarCita(Cita modelo)
         {
             Conexion con = new Conexion();
@@ -55,6 +55,24 @@ namespace APIClinicasa.Controllers
 
             con.Desconectar();
             return Ok("Cita Modificada!");
+        }
+
+        [HttpPost]
+        public IHttpActionResult EliminarCita(int id)
+        {
+            Conexion con = new Conexion();
+            con.Conectaar();
+            SqlCommand com = new SqlCommand(); // Create a object of SqlCommand class
+            com.Connection = con.con; //Pass the connection object to Command
+            com.CommandType = CommandType.StoredProcedure; // We will use stored procedure.
+            com.CommandText = "ControlCitas"; //Stored Procedure Name
+
+            com.Parameters.Add("@i_metodo", SqlDbType.Int).Value = 3;
+            com.Parameters.Add("@i_idCita", SqlDbType.Int).Value = id;
+            com.ExecuteNonQuery();
+
+            con.Desconectar();
+            return Ok("Cita Eliminada!");
         }
     }
 }
