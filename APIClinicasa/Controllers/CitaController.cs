@@ -24,7 +24,8 @@ namespace APIClinicasa.Controllers
             com.CommandText = "ControlCitas"; //Stored Procedure Name
 
             com.Parameters.Add("@i_metodo", SqlDbType.Int).Value = 1;
-            com.Parameters.Add("@i_paciente", SqlDbType.NVarChar).Value = modelo.Paciente;
+            com.Parameters.Add("@i_idCita", SqlDbType.Int).Value = modelo.Citaid;
+            com.Parameters.Add("@i_paciente", SqlDbType.Int).Value = modelo.Paciente;
             com.Parameters.Add("@i_doctor", SqlDbType.Int).Value = modelo.Doctor;
             com.Parameters.Add("@i_fecha", SqlDbType.Date).Value = modelo.fecha;
             com.Parameters.Add("@i_hora", SqlDbType.Int).Value = modelo.Hora;
@@ -57,7 +58,7 @@ namespace APIClinicasa.Controllers
             return Ok("Cita Modificada!");
         }
 
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult EliminarCita(int id)
         {
             Conexion con = new Conexion();
